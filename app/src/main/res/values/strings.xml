@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Husk</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_adding_item">AddingItem</string>
+
+
+    <string name="enter_app_name"> enter app name</string>
+    <string name="enter_app_email"> enter app email</string>
+    <string name="enter_app_password"> enter app password</string>
+    <string name="title_activity_editing">EditingActivity</string>
+
+
+</resources>
