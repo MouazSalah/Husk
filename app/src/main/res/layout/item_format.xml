@@ -10,45 +10,33 @@
     android:padding="5dp"
     >
 
-
-
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_weight="9"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
         android:orientation="vertical"
+        android:paddingLeft="10dp"
         >
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:id="@+id/item_name_textview"
         android:text="App Name"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/DarkSlateBlue"
+        android:textColor="@color/DodgerBlue"
         />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:id="@+id/item_password_textview"
         android:text="password"
         android:paddingLeft="5dp"
-        android:textSize="14sp"
+        android:textSize="16sp"
         />
 
     </LinearLayout>
-
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_weight="3"
-        android:layout_height="48dp"
-        android:src="@drawable/delete_icon"
-        android:id="@+id/delete_imageview"
-        />
 
 </LinearLayout>

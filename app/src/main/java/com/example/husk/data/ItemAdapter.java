@@ -1,8 +1,6 @@
 package com.example.husk.data;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +14,13 @@ import java.util.ArrayList;
 public class ItemAdapter<I> extends ArrayAdapter<Item>
 {
 
+    ArrayList<Item> itemArrayList = new ArrayList<>();
+
     public ItemAdapter(Context context, ArrayList<Item> item)
     {
         super(context, 0, item);
+
+        this.itemArrayList = item;
     }
 
 
@@ -27,36 +29,17 @@ public class ItemAdapter<I> extends ArrayAdapter<Item>
     {
         View itemView = LayoutInflater.from(getContext()).inflate(R.layout.item_format, parent, false);
 
-        Item currentItem = getItem(position);
+        Item currentItem = itemArrayList.get(position);
 
         TextView appNameTextView = (TextView) itemView.findViewById(R.id.item_name_textview);
         TextView appPasswordTextView = (TextView) itemView.findViewById(R.id.item_password_textview);
 
-        StringBuilder stringBuilder = new StringBuilder();
+        String name = currentItem.getName();
+        appNameTextView.setText(name);
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + AppContract.TABLENAME ,null);
-        
-        // long count = cursor.getCount();
-        while (cursor.moveToNext())
-        {
-            int idColumn = cursor.getColumnIndex(AppContract.COLUMN_ID);
-            String id = cursor.getString(idColumn);
+        String password = currentItem.getPassword();
+        appPasswordTextView.setText(password);
 
-            int nameColumn = cursor.getColumnIndex(AppContract.COLUMN_NAME);
-            String name = cursor.getString(nameColumn);
-            appNameTextView.setText(name);
-
-            int emailColumn = cursor.getColumnIndex(AppContract.COLUMN_EMAIL);
-            String email = cursor.getString(emailColumn);
-
-            int passwordColumn = cursor.getColumnIndex(AppContract.COLUMN_PASSWORD);
-            String password = cursor.getString(passwordColumn);
-            appPasswordTextView.setText(password);
-
-        }
-        
         return itemView;
     }
 }

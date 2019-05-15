@@ -1,33 +1,27 @@
 package com.example.husk;
 
-import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.husk.data.AppContract;
-import com.example.husk.data.AppProvider;
-import com.example.husk.data.DatabaseHelper;
-
-import java.util.zip.Inflater;
+import com.example.husk.data.DatabaseManager;
+import com.example.husk.data.Item;
+import com.example.husk.data.SqliteHelper;
 
 public class AddingActivity extends AppCompatActivity
 {
     String name, email, password, confirmPassword;
     EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
+    SqliteHelper sqliteHelper;
+    int itemId;
 
-    DatabaseHelper databaseHelper;
-    SQLiteDatabase sqLiteDatabase;
-    long value ;
+    DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,14 +31,37 @@ public class AddingActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseManager = new DatabaseManager(this);
+        sqliteHelper = new SqliteHelper(this);
+
 
         nameEditText = (EditText) findViewById(R.id.name_edittext);
         emailEditText = (EditText) findViewById(R.id.email_edittext);
         passwordEditText = (EditText) findViewById(R.id.password_edittext);
         confirmPasswordEditText = (EditText) findViewById(R.id.confirm_password_edittext);
 
+        Intent mIntent = getIntent();
+        itemId = mIntent.getIntExtra("item_id", 0);
 
+        if (itemId != 0)
+        {
+            getContact();
+        }
+
+        nameEditText.setText(name);
+        emailEditText.setText(email);
+        passwordEditText.setText(password);
+        confirmPasswordEditText.setText(password);
+    }
+
+
+    public void getContact()
+    {
+        Item item = databaseManager.getItem(itemId);
+        name = item.getName();
+        email = item.getEmail();
+        password = item.getPassword();
+        confirmPassword = item.getPassword();
     }
 
 
@@ -52,6 +69,13 @@ public class AddingActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.adding_menu, menu);
+
+        if (itemId == 0)
+        {
+            MenuItem item = menu.findItem(R.id.action_delete);
+            item.setVisible(false);
+        }
+
         return true;
     }
 
@@ -64,67 +88,112 @@ public class AddingActivity extends AppCompatActivity
                 finish();
 
             case R.id.action_save:
-                addItem();
+                CheckFields();
+                break;
+
+            case R.id.action_delete:
+
+                deleteItemDialog();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void addItem()
+    public void CheckFields()
     {
-        name = nameEditText.getText().toString();
-        email = emailEditText.getText().toString();
-        password = passwordEditText.getText().toString();
-        confirmPassword = confirmPasswordEditText.getText().toString();
-
-
-        if (name.isEmpty())
+        if (nameEditText.getText().toString().isEmpty())
         {
             nameEditText.setError("please enter name");
         }
-        else if (email.isEmpty())
+        else if (emailEditText.getText().toString().isEmpty())
         {
             emailEditText.setError("please enter email");
         }
-        else if (password.isEmpty())
+        else if (passwordEditText.getText().toString().isEmpty())
         {
             passwordEditText.setError("please enter password");
         }
-        else if ( !(confirmPassword.equals(password)) )
+        else if ( !(confirmPasswordEditText.getText().toString().equals(confirmPasswordEditText.getText().toString())) )
         {
             confirmPasswordEditText.setError("not match password");
         }
         else
         {
-            addItemToDatabase(name, email, password);
+            name = nameEditText.getText().toString();
+            email = emailEditText.getText().toString();
+            password = passwordEditText.getText().toString();
+
+            if (itemId == 0)
+            {
+                insertNewItem();
+            }
+            else
+            {
+                updateItem(name, email, password);
+            }
         }
     }
 
-    public  void addItemToDatabase(String name , String email , String password)
+    private void insertNewItem()
     {
-
-        sqLiteDatabase = databaseHelper.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(AppContract.COLUMN_NAME, name);
-        contentValues.put(AppContract.COLUMN_EMAIL, email);
-        contentValues.put(AppContract.COLUMN_PASSWORD, password);
-
-        Uri newUri = getContentResolver().insert(AppContract.CONTENT_URI, contentValues);
-
-
-        if (newUri == null)
+        long i = databaseManager.insert(name, email, password);
+        Log.d("inserValue", String.valueOf(i));
+        if (i != -1)
         {
-            Toast.makeText(this, "failed", Toast.LENGTH_LONG).show();
-
-        }
-        else
-        {
-            Toast.makeText(this, "added: " + newUri, Toast.LENGTH_LONG).show();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
     }
 
 
+    public void updateItem(String name , String email , String password)
+    {
+        long value = databaseManager.update(itemId, name, email, password);
+        Log.d("updateValue", String.valueOf(value));
+        if (value != -1)
+        {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    public void deleteItem()
+    {
+        long deletedItemValue = databaseManager.deleteItem(itemId);
+
+        Log.d("delete value: " , String.valueOf(deletedItemValue));
+        if (deletedItemValue != -1)
+        {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
+
+    }
+
+
+
+    public void deleteItemDialog()
+    {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle("Deleting !!!")
+                    .setMessage("Are you sure ?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            deleteItem();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                        }
+                    });
+            builder.show();
+    }
 }

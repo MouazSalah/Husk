@@ -20,4 +20,11 @@
         android:icon="@drawable/save_icon"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="100"
+        android:title="Delete"
+        android:icon="@drawable/delete_icon"
+        app:showAsAction="always" />
+
 </menu>
