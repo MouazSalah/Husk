@@ -1,4 +1,4 @@
-package com.example.husk.data;
+package com.husk.husk.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

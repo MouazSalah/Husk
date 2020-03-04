@@ -1,9 +1,11 @@
-package com.example.husk.data;
+package com.husk.husk.model;
 
 public class Item
 {
     int id;
-    String name, email, password;
+    public String name;
+    public String email;
+    public String password;
 
     public Item() { }
 

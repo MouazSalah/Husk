@@ -2,19 +2,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.husk.MainActivity">
+    tools:context="com.husk.husk.view.MainActivity">
 
     <item
         android:id="@+id/action_delete"
         android:orderInCategory="100"
-        android:title="Delete all"
+        android:title="@string/delete_all"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_addnew"
         android:orderInCategory="100"
-        android:title="Add new"
+        android:title="@string/add_new"
         app:showAsAction="never" />
+
+   <!-- <item
+        android:id="@+id/action_changelanguage"
+        android:orderInCategory="100"
+        android:title="اللغة العربية"
+        app:showAsAction="never"/>-->
+
 
 
 </menu>

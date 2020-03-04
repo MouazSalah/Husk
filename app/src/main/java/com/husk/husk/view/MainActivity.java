@@ -1,7 +1,9 @@
-package com.example.husk;
+package com.husk.husk.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,15 +18,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.example.husk.data.DatabaseManager;
-import com.example.husk.data.Item;
-import com.example.husk.data.ItemAdapter;
+
+import com.husk.husk.R;
+import com.husk.husk.database.DatabaseManager;
+import com.husk.husk.model.Item;
+import com.husk.husk.adapter.ItemAdapter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
 {
     DatabaseManager databaseManager;
-
     ListView itemListView;
 
     ArrayList<Item> itemArrayList;
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity
 
     EditText nameEditText, emailEditText, passwordEditText;
     String appName, appEmail, appPassword;
+
+    SharedPreferences sharedPreferences;
+    String APP_LANGUAGE = "en";
 
 
     @Override
@@ -43,6 +50,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         databaseManager = new DatabaseManager(this);
+
 
 
         itemListView = (ListView) findViewById(R.id.items_listview);
@@ -89,11 +97,23 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    public void setAppLanguage(String lang)
+    {
+        Locale locale = new Locale(APP_LANGUAGE);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        this.getResources().updateConfiguration(config, this.getResources().getDisplayMetrics());
+
+    }
+
 
     private void showAlertDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-        .setTitle("Add a new");
+        .setTitle(R.string.add_new);
 
         LayoutInflater layoutInflater = getLayoutInflater();
         View v = layoutInflater.inflate(R.layout.alertdialog_layout, null);
@@ -104,7 +124,7 @@ public class MainActivity extends AppCompatActivity
 
 
         builder.setView(v)
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
@@ -118,7 +138,8 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         })
-        .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+
+        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int which)
@@ -199,6 +220,27 @@ public class MainActivity extends AppCompatActivity
            Intent intent = new Intent(getApplicationContext(), AddingActivity.class);
            startActivity(intent);
         }
+       /* if (id == R.id.action_changelanguage)
+        {
+            if (APP_LANGUAGE == "en")
+            {
+                item.setTitle("اللغة العربية");
+                setAppLanguage("en");
+                APP_LANGUAGE = "en";
+                sharedPreferences.edit().putString("language", APP_LANGUAGE);
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+            else
+            {
+                item.setTitle("English");
+                setAppLanguage("ar");
+                APP_LANGUAGE = "ar";
+                sharedPreferences.edit().putString("language", APP_LANGUAGE);
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

@@ -1,21 +1,20 @@
-package com.example.husk.data;
+package com.husk.husk.database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.husk.husk.model.Item;
 
 import java.util.ArrayList;
 
 public class DatabaseManager
 {
-
     SqliteHelper sqliteHelper;
     SQLiteDatabase sqLiteDatabase;
     Context context;
-
 
     public DatabaseManager(Context c)
     {
@@ -30,7 +29,6 @@ public class DatabaseManager
         ArrayList<Item> movieDetailsList = new ArrayList();
 
         String selectQuery = "SELECT * FROM " + SqliteHelper.TABLE_NAME;
-
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         int i = 0;

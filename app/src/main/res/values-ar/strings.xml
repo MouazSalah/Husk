@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Husk</string>
+
+    <string name="No">لا</string>
+    <string name="add_new">اضافة جديد</string>
+    <string name="are_you_sure">هل انت متاكد ؟</string>
+    <string name="cancel">الغاء</string>
+    <string name="confirm_password">الرقم السري مرة اخري</string>
+    <string name="delete">ازالة</string>
+    <string name="delete_all">مسح الكل</string>
+    <string name="deleting">مسح !!!</string>
+    <string name="email">الايميل</string>
+    <string name="enter_app_email">ادخل الايميل</string>
+    <string name="enter_app_name"> اسم التطبيق</string>
+    <string name="enter_app_password"> كلمة السر</string>
+    <string name="enter_email">الايميل</string>
+    <string name="enter_name"> اسم التطبيق</string>
+    <string name="enter_password">كلمة السر</string>
+    <string name="get_started_by_adding_data">"ابدأ الان باضافة عنصر جديد "</string>
+    <string name="name">اسم التطبيق</string>
+    <string name="no_items_here">القائمة فارغة ، لا يوجد عناصر هنا</string>
+    <string name="not_match">غير متطابق  </string>
+    <string name="password">كلمة السر</string>
+
+    <string name="please_enter_email">ادخل الايميل</string>
+    <string name="please_enter_name">ادخل اسم التطبيق</string>
+    <string name="please_enter_password">ادخل الرقم السري</string>
+
+    <string name="yes">نعم</string>
+
+
+</resources>

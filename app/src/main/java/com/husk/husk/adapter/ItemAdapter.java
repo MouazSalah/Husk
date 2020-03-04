@@ -1,4 +1,4 @@
-package com.example.husk.data;
+package com.husk.husk.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.husk.R;
+import com.husk.husk.R;
+import com.husk.husk.model.Item;
 
 import java.util.ArrayList;
 

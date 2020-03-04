@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".AddingActivity"
+    tools:context=".view.AddingActivity"
     android:padding="10dp"
     android:orientation="vertical"
     tools:showIn="@layout/activity_adding_item">
@@ -23,7 +23,7 @@
 
         <!-- Label -->
         <TextView
-            android:text="Name"
+            android:text="@string/name"
             style="@style/CategoryStyle" />
 
         <!-- Input fields -->
@@ -37,7 +37,7 @@
             <!-- Name field -->
             <EditText
                 android:id="@+id/name_edittext"
-                android:hint="Name"
+                android:hint="@string/enter_name"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
 
@@ -54,7 +54,7 @@
 
         <!-- Label -->
         <TextView
-            android:text="Email"
+            android:text="@string/email"
             style="@style/CategoryStyle" />
 
         <!-- Input field -->
@@ -67,7 +67,7 @@
             <!-- Breed field -->
             <EditText
                 android:id="@+id/email_edittext"
-                android:hint="Email"
+                android:hint="@string/enter_email"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
         </LinearLayout>
@@ -83,7 +83,7 @@
 
         <!-- Label -->
         <TextView
-            android:text="Password"
+            android:text="@string/password"
             style="@style/CategoryStyle" />
 
         <!-- Input fields -->
@@ -97,14 +97,14 @@
             <!-- Name field -->
             <EditText
                 android:id="@+id/password_edittext"
-                android:hint="Password"
+                android:hint="@string/enter_password"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
 
             <!-- Breed field -->
             <EditText
                 android:id="@+id/confirm_password_edittext"
-                android:hint="Confirm Password"
+                android:hint="@string/confirm_password"
                 android:inputType="textCapWords"
                 style="@style/EditorFieldStyle" />
         </LinearLayout>

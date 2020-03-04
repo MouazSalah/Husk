@@ -10,4 +10,33 @@
     <string name="title_activity_editing">EditingActivity</string>
 
 
+    <string name="name"> Name </string>
+    <string name="email"> Email </string>
+    <string name="password"> Password </string>
+
+    <string name="enter_name"> Enter name</string>
+    <string name="enter_email"> Enter email</string>
+    <string name="enter_password"> Enter password</string>
+    <string name="confirm_password"> Confirm password</string>
+
+
+    <string name="no_items_here"> No Items here...</string>
+    <string name="get_started_by_adding_data"> Get started by adding a new data </string>
+    <string name="deleting">Deleting !!!</string>
+    <string name="are_you_sure">Are you Sure ?</string>
+    <string name="yes">Yes</string>
+    <string name="No">No</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="please_enter_email">please enter email</string>
+    <string name="please_enter_password">please enter password</string>
+    <string name="not_match">not match</string>
+
+    <string name="cancel"> Cancel </string>
+    <string name="delete"> Delete </string>
+    <string name="delete_all"> Delete All</string>
+
+    <string name="add_new"> Add New </string>
+
+    <string name="change_language"> Change Language </string>
+
 </resources>

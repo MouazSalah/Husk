@@ -1,4 +1,4 @@
-package com.example.husk;
+package com.husk.husk.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import com.example.husk.data.DatabaseManager;
-import com.example.husk.data.Item;
-import com.example.husk.data.SqliteHelper;
+
+import com.husk.husk.R;
+import com.husk.husk.database.DatabaseManager;
+import com.husk.husk.model.Item;
+import com.husk.husk.database.SqliteHelper;
 
 public class AddingActivity extends AppCompatActivity
 {
@@ -104,19 +106,23 @@ public class AddingActivity extends AppCompatActivity
     {
         if (nameEditText.getText().toString().isEmpty())
         {
-            nameEditText.setError("please enter name");
+            nameEditText.setError("enter name");
         }
         else if (emailEditText.getText().toString().isEmpty())
         {
-            emailEditText.setError("please enter email");
+            emailEditText.setError("enter email");
         }
         else if (passwordEditText.getText().toString().isEmpty())
         {
-            passwordEditText.setError("please enter password");
+            passwordEditText.setError("enter password");
         }
-        else if ( !(confirmPasswordEditText.getText().toString().equals(confirmPasswordEditText.getText().toString())) )
+        else if (confirmPasswordEditText.getText().toString().isEmpty())
         {
-            confirmPasswordEditText.setError("not match password");
+            passwordEditText.setError("enter password again");
+        }
+        else if (!(confirmPasswordEditText.getText().toString().equals(passwordEditText.getText().toString())) )
+        {
+            confirmPasswordEditText.setError("not match");
         }
         else
         {
@@ -176,10 +182,10 @@ public class AddingActivity extends AppCompatActivity
     public void deleteItemDialog()
     {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                    .setTitle("Deleting !!!")
-                    .setMessage("Are you sure ?")
+                    .setTitle(R.string.deleting)
+                    .setMessage(R.string.are_you_sure)
                     .setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
@@ -187,7 +193,7 @@ public class AddingActivity extends AppCompatActivity
                             deleteItem();
                         }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener()
+                    .setNegativeButton(R.string.No, new DialogInterface.OnClickListener()
                     {
                         @Override
                         public void onClick(DialogInterface dialog, int which)
